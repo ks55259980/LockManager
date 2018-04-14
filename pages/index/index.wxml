@@ -1,6 +1,10 @@
 <!--index.wxml-->
 <view class="container">
 <map bindmarkertap="markertap"></map>
+<view>{{text}}</view>
+<view>{{array[0].msg}}</view>
+<view bindtap='viewTap'>click me</view>
+<view bindtap='openLock'>openLock</view>
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
