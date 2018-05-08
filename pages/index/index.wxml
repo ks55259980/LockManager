@@ -3,8 +3,10 @@
 <map bindmarkertap="markertap"></map>
 <view>{{text}}</view>
 <view>{{array[0].msg}}</view>
-<view bindtap='viewTap'>click me</view>
+<view bind:tap='viewTap'>click me</view>
+<!-- <view wx:for="{{array1}}"> {{item}} </view> -->
 <view bindtap='openLock'>openLock</view>
+<view bindtap='testPost'>test Post request</view>
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
@@ -15,4 +17,49 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+</view>
+<template name="staffName">
+  <view>
+    FirstName: {{firstName}}, LastName: {{lastName}}
+  </view>
+</template>
+
+<template is="staffName" data="{{...staffA}}"></template>
+<template is="staffName" data="{{...staffB}}"></template>
+<template is="staffName" data="{{...staffC}}"></template>
+<wxs module="m1">
+var msg = "hello world";
+
+module.exports.message = msg;
+</wxs>
+
+<view> {{m1.message}} </view>
+
+<!-- 下面的 getMax 函数，接受一个数组，且返回数组中最大的元素的值 -->
+<wxs module="m1">
+var getMax = function(array) {
+  var max = undefined;
+  for (var i = 0; i < array.length; ++i) {
+    max = max === undefined ? 
+      array[i] : 
+      (max >= array[i] ? max : array[i]);
+  }
+  return max;
+}
+
+module.exports.getMax = getMax;
+</wxs>
+
+<!-- 调用 wxs 里面的 getMax 函数，参数为 page.js 里面的 array -->
+<view> {{m1.getMax(array1)}} </view>
+
+<wxs src="index.wxs" module="tools" />
+<view> {{tools.msg}} </view>
+<view> {{tools.bar(tools.FOO)}} </view>
+  <!-- 以下是对一个自定义组件的引用 -->
+<view>
+  <component-tag-name inner-text="Some text">
+  <view slot="header">头部的内容</view>
+    <view slot="footer">底部的内容</view>
+  </component-tag-name>
 </view>

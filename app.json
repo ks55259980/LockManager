@@ -6,7 +6,25 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "Lock",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "tabBar": {
+    "color": "#ddd",
+    "selectedColor": "#3cc51f",
+    "backgroundColor": "#fff",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "text",
+      "iconPath": "pages/image/index.png",
+      "selectedIconPath": "pages/image/secIndex.png"
+    },
+    {
+      "pagePath": "pages/logs/logs",
+      "text": "log",
+      "iconPath": "pages/image/log.png",
+      "selectedIconPath": "pages/image/selLog.png"
+    }]
+  },
+  "workers":"workers"
 }
