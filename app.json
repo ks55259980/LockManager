@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/lock/list",
+    "pages/lock/view",
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -9,22 +11,5 @@
     "navigationBarTitleText": "Lock",
     "navigationBarTextStyle": "black"
   },
-  "tabBar": {
-    "color": "#ddd",
-    "selectedColor": "#3cc51f",
-    "backgroundColor": "#fff",
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "text",
-      "iconPath": "pages/image/index.png",
-      "selectedIconPath": "pages/image/secIndex.png"
-    },
-    {
-      "pagePath": "pages/logs/logs",
-      "text": "log",
-      "iconPath": "pages/image/log.png",
-      "selectedIconPath": "pages/image/selLog.png"
-    }]
-  },
-  "workers":"workers"
+  "workers": "workers"
 }

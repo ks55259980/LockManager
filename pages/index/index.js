@@ -124,7 +124,7 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    // canIUse: wx.canIUse('button.open-type.getUserInfo'),
     text: 'init data',
     array: [{ msg: '1' }, { msg: '2' }],
     array1: [1, 2, 3, 4, 5],
