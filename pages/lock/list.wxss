@@ -28,7 +28,7 @@ page {
   right:16rpx;
   background:#222222;
   color:#fff;
-  font-size:28rpx;
+  font-size:36rpx;
   padding:0 16rpx;
   border-radius:6rpx;
 }

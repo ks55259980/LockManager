@@ -1,16 +1,23 @@
 <view class="locks">
 <scroll-view class="scroll-view_H" scroll-y>
-  <block wx:for="{{locklist}}" wx:key="id" wx:for-index="idx" wx:for-item="lock">
+  <block>
+    <view class="lock" >
+       <view class="name">{{topText.lock_name}}</view>
+       <view class="photo-total">{{topText.operate}}</view>
+    </view>
+  </block>
+  <block wx:for="{{lockList}}" wx:key="id" wx:for-index="idx" wx:for-item="lock">
       <navigator url='/pages/lock/view?id={{lock.id}}'>
-      <view class="lock">
-          <view class="name">{{lock.lock_name}}</view>
-          <view class="photo-total">{{lock.status === '0' ? '未连接' : '已连接'}}</view>
-          <!-- <view class="update-time">{{lock.formatUpdateTime}}</view> -->
-      </view></navigator>
+        <view class="lock">
+            <view class="name">{{lock.lock_name}}</view>
+            <view class="photo-total">{{lock.status === '0' ? '未连接' : '已连接'}}</view>
+            <!-- <view class="update-time">{{lock.formatUpdateTime}}</view>  -->
+        </view>
+      </navigator>
   </block>
   </scroll-view>
 </view>
  <view class='butt'>
-  <button type='primary' bindtap="setDisabled">设备扫描</button>
-  <button type='default' bindtap="setDisabled" style='margin-top: 20rpx'>紧急开锁</button>
+  <button type='primary' bindtap="discoveryRequipment">设备扫描</button>
+  <button type='default' bindtap="setDisabled" style='margin-top: 20rpx'>{{msg}}</button>
 </view> 

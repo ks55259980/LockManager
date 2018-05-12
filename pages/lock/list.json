@@ -3,6 +3,5 @@
   "navigationBarTitleText": "BlueLock",
   "backgroundColor": "#F2F2F2",
   "navigationBarBackgroundColor": "#F2F2F2",
-  "navigationBarTextStyle": "black",
-  "enablePullDownRefresh": true
+  "navigationBarTextStyle": "black"
 }
