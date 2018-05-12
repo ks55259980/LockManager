@@ -1,7 +1,7 @@
 <view class="locks">
-// 没有数据的时候显示这个
-<view wx:if="{{lockList && lockList.length > 0}}">没有数据哦!</view>
-// 有数据的时候显示这个，做好判断
+<!--  没有数据的时候显示这个 -->
+<view style='text-align: center; padding: 100rpx' wx:if="{{lockList && lockList.length > 0}}">没有数据哦!</view>
+<!--  有数据的时候显示这个，做好判断 -->
 <scroll-view class="scroll-view_H" scroll-y wx:else>
   <block>
     <view class="lock" >
@@ -20,11 +20,10 @@
             <view class="name">{{lock.lock_name}}</view>
             <view class="status">{{lock.status === '0' ? '未连接' : '已连接'}}</view>
             <button bindtap="setPlain" size='mini'>连接</button>            
-            <!-- <view class="update-time">{{lock.formatUpdateTime}}</view>  -->
         </view>
       </navigator>
   </block>
-  </scroll-view>
+</scroll-view>  
 </view>
  <view class='butt'>
   <button type='primary' bindtap="discoveryRequipment">设备扫描</button>
