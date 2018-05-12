@@ -192,11 +192,10 @@ Page({
         console.log(res)
         getStatus()
         wx.onBluetoothDeviceFound(function (devices) {
-          // console.log('new device list has founded')
-
+          console.log('new device list has founded')
           // console.log(devices.devices[0])
           if (devices.devices[0].deviceId == "3C:A3:08:91:20:4A") {
-            console.dir(devices)
+            console.log(devices)
             deviceId = devices.devices[0].deviceId
             connectDevice(devices.devices[0].deviceId)
           }

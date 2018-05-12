@@ -87,3 +87,10 @@ page {
   height: 0;
   color: transparent;
 }
+
+.hide{
+ display: none;
+}
+.show{ 
+ display: block;
+}
