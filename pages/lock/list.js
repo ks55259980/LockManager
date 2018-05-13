@@ -3,6 +3,7 @@ var write36F5 = '';
 var notify36F6 = '';
 var deviceId = '';
 var serviceId = '';
+var currentDevice = '';
 var _this = "";
 var companyId = [1, 2];
 const app = getApp()
@@ -29,17 +30,25 @@ const onDeviceFound = function (devices) {
   var resultBytes = new Int8Array(resultBuffer)
   console.log(resultBytes)
   if (resultBytes[0] == companyId[0] && resultBytes[1] == companyId[1]) {
-    var newEquipment = {
-      "deviceId": devices.devices[0].deviceId,
-      "lock_name": devices.devices[0].name,
-      "status": "0",
-      "showView":true,
-      "index": lockList.length
+    var exist = 0 
+    for(var i in lockList){
+      if (lockList[i].deviceId == devices.devices[0].deviceId){
+        exist++
+      }
     }
-    lockList.push(newEquipment)
-    _this.setData({
-      lockList:lockList
-    });
+    if(exist == 0){
+      var newEquipment = {
+        "deviceId": devices.devices[0].deviceId,
+        "lock_name": devices.devices[0].name,
+        "status": "0",
+        "showView": true,
+        "index": lockList.length
+      }
+      lockList.push(newEquipment)
+      _this.setData({
+        lockList: lockList
+      });
+    }
   }
 }
 //扫描蓝牙设备
@@ -58,7 +67,7 @@ const startDiscovery = function () {
 //连接设备
 const connectDevice = function (device) {
   wx.stopBluetoothDevicesDiscovery({
-    success: function(res) {
+    success: function (res) {
       console.log(res)
     }
   })
@@ -66,19 +75,20 @@ const connectDevice = function (device) {
     deviceId: device.deviceId,
     success: function (res) {
       console.log(res);
-      device.showView = false
-      device.status = 1
-      lockList[device.index] = device
+      currentDevice = device
+      currentDevice.showView = false
+      currentDevice.status = '1'
+      lockList[currentDevice.index] = currentDevice
       _this.setData({
         lockList: lockList
       });
 
       let str = JSON.stringify(device);
       wx.navigateTo({
-        "url": '/pages/lock/view?device='+str
+        "url": '/pages/lock/view?device=' + str
       })
     },
-    fail:function(res){
+    fail: function (res) {
       wx.showToast({
         title: "连接失败,请重新激活蓝牙设备",
         icon: "none"
@@ -87,7 +97,7 @@ const connectDevice = function (device) {
   })
 }
 //获取设备特征值
-const achieveUUID = function(){
+const achieveUUID = function () {
 
 }
 Page({
@@ -99,12 +109,12 @@ Page({
     hideHeader: true,
     hideBottom: true,
     refreshTime: '',
-    showView : true,
+    showView: true,
     topText: {
       "lock_name": "锁名",
       "status": "连接状态",
-      "operate":"操作",
-      showView:false
+      "operate": "操作",
+      showView: false
     },
     lockList: lockList,
     allPages: '',
@@ -133,21 +143,37 @@ Page({
       }
     })
   },
-  connect:function(e){
+  connect: function (e) {
     console.log(e.currentTarget.dataset.lock)
     connectDevice(e.currentTarget.dataset.lock);
 
   },
-  disconnect:function(e){
+  disconnect: function (e) {
     console.log(e.currentTarget.dataset)
     wx.closeBLEConnection({
-      deviceId: e.currentTarget.dataset.lock.deviceId,
-      success: function(res) {},
+      deviceId: currentDevice.deviceId,
+      success: function (res) {
+        console.log(res)
+        currentDevice.showView = true
+        currentDevice.status = '0'
+        lockList[currentDevice.index] = currentDevice
+        console.log(currentDevice)
+        _this.setData({
+          lockList: lockList
+        });
+      },
+      complete: function () {
+        wx.closeBluetoothAdapter({
+          success: function (res) {
+            console.log(res)
+          }
+        })
+      }
     })
   },
-  navigate_test:function(e){
+  navigate_test: function (e) {
     console.log(e.currentTarget.dataset.lock)
-    let str = JSON.stringify(e.currentTarget.dataset.lock);  
+    let str = JSON.stringify(e.currentTarget.dataset.lock);
     wx.navigateTo({
       "url": '/pages/lock/view?device=' + str
     })
@@ -177,7 +203,25 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    // wx.closeBLEConnection({
+    //   deviceId: currentDevice.deviceId,
+    //   success: function (res) {
+    //     console.log(res)
+    //     currentDevice.showView = true
+    //     currentDevice.status = 0
+    //     lockList[currentDevice.index] = currentDevice
+    //     _this.setData({
+    //       lockList: lockList
+    //     });
+    //   },
+    //   complete: function () {
+    //     wx.closeBluetoothAdapter({
+    //       success: function (res) {
+    //         console.log(res)
+    //       }
+    //     })
+    //   }
+    // })
   },
 
   /**
