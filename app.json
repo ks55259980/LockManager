@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/lock/list",
-    "pages/lock/view",
     "pages/index/index",
+    "pages/lock/view",
     "pages/logs/logs"
   ],
   "window": {
