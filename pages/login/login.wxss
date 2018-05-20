@@ -1,0 +1,13 @@
+.wrapper {
+  height: 100%;
+  width: 100%;
+}
+.wrapper .title {
+  font-size: 50rpx;
+  text-align: center;
+  margin-top: 200rpx; 
+}
+.wrapper .button {
+  margin-top: 150rpx;
+  padding: 0 20rpx;
+}
