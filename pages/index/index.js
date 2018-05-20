@@ -39,7 +39,7 @@ const onValueChange = function () {
     console.log(byteArray)
     wx.request({
       method: "POST",
-      url: 'http://lock.dpdaidai.top/data/openLock',
+      url: 'http://39.106.50.22:8088/bluetooth-lock/data/openLock',
       data: { "byteArray": byteArray},
       // dataType : 
       success: function (res) {
@@ -139,7 +139,24 @@ Page({
     })
   },
   onLoad: function () {
-
+    wx.login({
+      success: function (res) {
+        console.log(res)
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: 'http://lock.dpdaidai.top/small/code',
+            data: {
+              code: res.code
+            }, success: function (res) {
+              console.log(res.data)
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    });
     console.log("xxxxx")
     if (app.globalData.userInfo) {
       this.setData({
@@ -168,6 +185,9 @@ Page({
       })
     }
   },
+  bindGetUserInfo : function(e){
+    console.log(e)
+  },
   onPullDownRefresh: function () {
     console.log("pull down refresh")
   },
@@ -192,11 +212,10 @@ Page({
         console.log(res)
         getStatus()
         wx.onBluetoothDeviceFound(function (devices) {
-          // console.log('new device list has founded')
-
+          console.log('new device list has founded')
           // console.log(devices.devices[0])
           if (devices.devices[0].deviceId == "3C:A3:08:91:20:4A") {
-            console.dir(devices)
+            console.log(devices)
             deviceId = devices.devices[0].deviceId
             connectDevice(devices.devices[0].deviceId)
           }
@@ -216,7 +235,7 @@ Page({
   },
   openLock: function () {
     wx.request({
-      url: 'http://lock.dpdaidai.top/data/accessToken',
+      url: 'http://39.106.50.22:8088/bluetooth-lock/data/accessToken',
       success: function (res) {
         console.log(res)
         var bytes = JSON.parse(res.data.data)

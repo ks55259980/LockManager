@@ -3,6 +3,13 @@
 <map bindmarkertap="markertap"></map>
 <view>{{text}}</view>
 <view>{{array[0].msg}}</view>
+<!--wxml-->
+<!-- 如果只是展示用户头像昵称，可以使用 <open-data /> 组件 -->
+<open-data type="userAvatarUrl"></open-data>
+<open-data type="userNickName"></open-data>
+<!-- 需要使用 button 来授权登录 -->
+<button  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+
 <view bind:tap='viewTap'>click me</view>
 <!-- <view wx:for="{{array1}}"> {{item}} </view> -->
 <view bindtap='openLock'>openLock</view>

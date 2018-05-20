@@ -1,13 +1,13 @@
 <view class="info">
   <view class='detail'>
-    <view class='label'>锁号:</view>一号锁
+    <view class='label'>锁名:</view>{{device.lock_name}}
   </view>
   <view class='detail'>
-    <view class='label'>状态: </view> 已连接
+    <view class='label'>状态: </view> {{device.status === '0' ? '未连接' : '已连接'}}
   </view>
 </view>
 <view class='but'>
-  <button type='primary' bindtap="setDisabled">开锁</button>
-  <button type='default' bindtap="setDisabled" style='margin-top: 20rpx'>断开</button>
-  <button type='primary' bindtap="setDisabled" style='margin-top: 20rpx'>连接</button>
+  <button type='primary' bindtap="openLock">开锁</button>
+  <!-- <button type='warn' bindtap="disconnect" style='margin-top: 20rpx'>断开</button> -->
+  <!-- <button type='warn' bindtap="" style='margin-top: 20rpx'>连接</button> -->
 </view>
