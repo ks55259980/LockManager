@@ -8,7 +8,7 @@
        <view class='line'>
         <view class="name">{{topText.lock_name}}</view>
         <view class='button'>
-            <button type="primary" bindtap="setPlain" size='mini'>连接</button>
+            <button type="primary" bindtap="setPlain" size='mini' style='display: none'>连接</button>
         </view>
        </view>
        <view class="status">{{topText.operate}}</view>
