@@ -5,6 +5,7 @@ var deviceId = '';
 var serviceId = '';
 var currentDevice = '';
 var _this = "";
+var authorize = 0 ;
 var companyId = [1, 2];
 const app = getApp()
 //查看蓝牙适配器状态
@@ -53,7 +54,15 @@ const onDeviceFound = function (devices) {
 }
 //扫描蓝牙设备
 const startDiscovery = function () {
+  console.log(_this.data.lo)
+  if(_this.data.loading == true){
+    return ;
+  }
+  _this.setData({
+    loading: true
+  })
   wx.startBluetoothDevicesDiscovery({
+    services: ['FEE7'],
     allowDuplicatesKey: false,
     fail: function (res) {
       console.log(res)
@@ -69,6 +78,9 @@ const connectDevice = function (device) {
   wx.stopBluetoothDevicesDiscovery({
     success: function (res) {
       console.log(res)
+      _this.setData({
+        loading: false
+      })
     }
   })
   wx.createBLEConnection({
@@ -85,7 +97,7 @@ const connectDevice = function (device) {
 
       let str = JSON.stringify(device);
       wx.navigateTo({
-        "url": '/pages/lock/view?device=' + str
+        "url": '/pages/lock/view?device=' + str + '&authorize=' + authorize 
       })
     },
     fail: function (res) {
@@ -110,6 +122,7 @@ Page({
     hideBottom: true,
     refreshTime: '',
     showView: true,
+    loading:'',
     topText: {
       "lock_name": "锁名",
       "status": "连接状态",
@@ -175,14 +188,17 @@ Page({
     console.log(e.currentTarget.dataset.lock)
     let str = JSON.stringify(e.currentTarget.dataset.lock);
     wx.navigateTo({
-      "url": '/pages/lock/view?device=' + str
+      "url": '/pages/lock/view?device=' + str + '&authorize = ' + authorize 
     })
+  },
+  authorize : function(){
+    authorize = 1
   },
   /**
   * 生命周期函数--监听页面加载
   */
-  onLoad: function () {
-
+  onLoad: function (option) {
+    console.log(option.openid)
   },
 
   /**

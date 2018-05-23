@@ -3,6 +3,7 @@ var write36F5 = '';
 var notify36F6 = '';
 var deviceId = '';
 var serviceId = '';
+var authorize = 0;
 
 //获取服务UUID和特征值
 var acceptCharacters = function(device){
@@ -34,8 +35,6 @@ var acceptCharacters = function(device){
             }
           }
 
-          console.log(write36F5)
-          console.log(notify36F6)
           monitor36F6()
         }
       })
@@ -115,17 +114,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (data) {
+    console.log(data)
     let device = JSON.parse(data.device)
+    authorize = data.authorize
     _this = this
     this.setData({
-      device:device
+      device: device,
+      authorize: authorize
     })
     deviceId = device.deviceId
     console.log(this.data)
     acceptCharacters(device)
     
   },
-  openLock : function(){
+  urgentOpenLock : function(){
     wx.request({
       url: 'http://39.106.50.22:8088/bluetooth-lock/data/accessToken',
       success: function (res) {
@@ -145,6 +147,44 @@ Page({
           value: arrayBuffer,
           success: function (res) {
             console.log(res)
+          }
+        })
+      }
+    })
+  },
+  openLock : function(){
+    if(authorize <= 0){
+      wx.showToast({
+        title: "未获取授权",
+        icon: "none"
+      })
+      return;
+    }else{
+      wx.showToast({
+        title: "已经授权",
+        icon: "none"
+      })
+    }
+    wx.request({
+      url: 'http://39.106.50.22:8088/bluetooth-lock/data/accessToken',
+      success: function (res) {
+        console.log(res)
+        var bytes = JSON.parse(res.data.data)
+        console.log(bytes)
+        var arrayBuffer = new ArrayBuffer(16)
+        var uint8Array = new Int8Array(arrayBuffer)
+        for (var i = 0; i < uint8Array.length; i++) {
+          uint8Array[i] = bytes[i]
+        }
+        console.log(arrayBuffer)
+        wx.writeBLECharacteristicValue({
+          deviceId: deviceId,
+          serviceId: serviceId,
+          characteristicId: write36F5,
+          value: arrayBuffer,
+          success: function (res) {
+            console.log(res)
+            authorize--
           }
         })
       }

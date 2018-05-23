@@ -5,7 +5,7 @@
         <view class='line'>
           <view class="name">{{topText.lock_name}}</view>
           <view class='button'>
-            <button type="default" bindtap="navigate_test" data-lock='{{topText}}' size='mini'>{{topText.operate}}</button>
+            <button type="default"  data-lock='{{topText}}' size='mini'>{{topText.operate}}</button>
           </view>
         </view>
         <view class="status">{{topText.status}}</view>
@@ -28,6 +28,6 @@
   </scroll-view>
 </view>
 <view class='butt'>
-  <button type='primary' bindtap="discoveryRequipment">设备扫描</button>
-  <button type='default' bindtap="setDisabled" style='margin-top: 20rpx'>{{msg}}</button>
+  <button type='primary' bindtap="authorize" style='margin-bottom: 10rpx'>申请授权开锁</button>
+  <button type='primary' bindtap="discoveryRequipment" loading="{{loading}}">激活蓝牙适配器</button>
 </view>

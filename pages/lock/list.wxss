@@ -6,7 +6,7 @@ page {
 .locks {
   padding:24rpx;
   font-size:32rpx;
-  height: calc(100% - 280rpx);
+  height: calc(100% - 500rpx);
 }
 
 .locks .lock {
@@ -78,6 +78,7 @@ page {
   background: #F2F2F2;
   padding:24rpx;
   width: calc(100% - 48rpx);
+  height: 10;
 }
 .scroll-view_H {
   height: 100%;

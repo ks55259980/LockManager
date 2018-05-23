@@ -2,8 +2,8 @@
   "pages": [
     "pages/login/login",
     "pages/lock/list",
-    "pages/index/index",
     "pages/lock/view",
+    "pages/index/index",
     "pages/logs/logs"
   ],
   "window": {

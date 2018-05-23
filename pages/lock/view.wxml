@@ -6,8 +6,12 @@
     <view class='label'>状态: </view> {{device.status === '0' ? '未连接' : '已连接'}}
   </view>
 </view>
+
 <view class='but'>
   <button type='primary' bindtap="openLock">开锁</button>
   <!-- <button type='warn' bindtap="disconnect" style='margin-top: 20rpx'>断开</button> -->
   <!-- <button type='warn' bindtap="" style='margin-top: 20rpx'>连接</button> -->
+</view>
+<view class='but'>
+  <button type='warn' bindtap="urgentOpenLock">紧急开锁!!</button>
 </view>
