@@ -76,7 +76,10 @@ const onValueChange = function () {
     wx.request({
       method: "POST",
       url: 'http://39.106.50.22:8088/bluetooth-lock/data/openLock',
-      data: { "byteArray": byteArray },
+      data: { 
+        "byteArray": byteArray,
+        "deviceId" : deviceId
+       },
       // dataType : 
       success: function (res) {
         console.log(res)

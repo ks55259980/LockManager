@@ -13,6 +13,7 @@ Page({
       icon: "success",
       duration : 1500,
       success: function () {
+        
         wx.navigateTo({
           url: '../lock/list'
         })
